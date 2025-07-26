@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         padding: 16,
         marginTop: 100,
         elevation: 1, //android
-        backgroundColor: '#4e0329',
+        backgroundColor: '#310219ff',
         shadowColor: 'black', // IOS 4 props required to create shadow
         shadowOffset: {
             width: 1, height: 1
