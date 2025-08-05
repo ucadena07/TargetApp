@@ -8,6 +8,7 @@ import NumberContainer from '../components/game/NumbersContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
 import InstructionText from '../components/ui/InstructionsText';
+import {Ionicons} from "@expo/vector-icons"
 
 let min = 1;
 let max = 100
@@ -47,10 +48,14 @@ function GameScreen({ userNumber, onGameOver }) {
                 <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
                 <View style={styles.buttonsContainer}>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, '-')}>-</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, '-')}>
+                            <Ionicons name="remove" size={24} color="white" />
+                        </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>+</PrimaryButton>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>
+                                     <Ionicons name="add" size={24} color="white" />
+                        </PrimaryButton>
                     </View>
                 </View>
 
