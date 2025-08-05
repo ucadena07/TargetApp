@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumbersContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionsText';
 
 let min = 1;
 let max = 100
@@ -43,10 +44,14 @@ function GameScreen({ userNumber, onGameOver }) {
                 {currentGuess}
             </NumberContainer>
             <Card>
-                <Text>Higher or lower?</Text>
-                <View>
-                    <PrimaryButton onPress={nextGuessHandler.bind(this, '-')}>-</PrimaryButton>
-                    <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>+</PrimaryButton>
+                <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, '-')}>-</PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>+</PrimaryButton>
+                    </View>
                 </View>
 
             </Card>
@@ -73,5 +78,14 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: Colors.accent500,
         padding: 12
+    },
+    buttonsContainer: {
+        flexDirection: 'row'
+    },
+    buttonContainer: {
+        flex: 1
+    },
+        instructionText:{
+        marginBottom: 12
     }
 })
