@@ -1,13 +1,13 @@
 import {Text,StyleSheet,View} from 'react-native'
 import Colors from '../../constants/colors';
 
-function Tilte({children}){
+function Title({children}){
     return (
       <Text style={styles.title}>{children}</Text>
     )
 }
 
-export default Tilte;
+export default Title;
 
 const styles =  StyleSheet.create({
     screen: {

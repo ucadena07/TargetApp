@@ -1,11 +1,12 @@
 
 import { Text, StyleSheet, View, Alert } from 'react-native'
-import Tilte from '../components/ui/Title';
+import Title from '../components/ui/Title';
 import Colors from '../constants/colors';
 import generateRandomBetween from '../helpers/random';
 import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumbersContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import Card from '../components/ui/Card';
 
 let min = 1;
 let max = 100
@@ -14,14 +15,14 @@ function GameScreen({ userNumber, onGameOver }) {
     const [currentGuess, setCurrentState] = useState(initialGuess)
 
     useEffect(() => {
-        if(currentGuess === userNumber){
+        if (currentGuess === userNumber) {
             onGameOver()
         }
-    },[currentGuess, userNumber])
+    }, [currentGuess, userNumber])
 
     function nextGuessHandler(direction) {
         if (direction === '-' && currentGuess < userNumber || direction === '+' && currentGuess > userNumber) {
-            Alert.alert("Dont lie","Wrong answer",[{text:"Sorry!", style:'cancel'}])
+            Alert.alert("Dont lie", "Wrong answer", [{ text: "Sorry!", style: 'cancel' }])
             return
         }
 
@@ -37,18 +38,18 @@ function GameScreen({ userNumber, onGameOver }) {
 
     return (
         <View style={styles.screen}>
-            <Tilte>Opponent's Guess</Tilte>
+            <Title>Opponent's Guess</Title>
             <NumberContainer>
                 {currentGuess}
             </NumberContainer>
-            <View>
+            <Card>
                 <Text>Higher or lower?</Text>
                 <View>
                     <PrimaryButton onPress={nextGuessHandler.bind(this, '-')}>-</PrimaryButton>
                     <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>+</PrimaryButton>
                 </View>
 
-            </View>
+            </Card>
             <View>
 
             </View>
