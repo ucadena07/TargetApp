@@ -22,6 +22,11 @@ function GameScreen({ userNumber, onGameOver }) {
         }
     }, [currentGuess, userNumber])
 
+    useEffect(() => {
+        min = 1;
+        max = 100
+    },[])
+
     function nextGuessHandler(direction) {
         if (direction === '-' && currentGuess < userNumber || direction === '+' && currentGuess > userNumber) {
             Alert.alert("Dont lie", "Wrong answer", [{ text: "Sorry!", style: 'cancel' }])
