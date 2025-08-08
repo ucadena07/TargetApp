@@ -1,5 +1,5 @@
 
-import { Text, StyleSheet, View, Alert } from 'react-native'
+import { Text, StyleSheet, View, Alert, FlatList } from 'react-native'
 import Title from '../components/ui/Title';
 import Colors from '../constants/colors';
 import generateRandomBetween from '../helpers/random';
@@ -8,13 +8,15 @@ import NumberContainer from '../components/game/NumbersContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
 import InstructionText from '../components/ui/InstructionsText';
-import {Ionicons} from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons"
+import GuessLogItem from '../components/game/GuessLogItem';
 
 let min = 1;
 let max = 100
 function GameScreen({ userNumber, onGameOver }) {
     var initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentState] = useState(initialGuess)
+    const [rounds, setRounds] = useState([])
 
     useEffect(() => {
         if (currentGuess === userNumber) {
@@ -25,7 +27,7 @@ function GameScreen({ userNumber, onGameOver }) {
     useEffect(() => {
         min = 1;
         max = 100
-    },[])
+    }, [])
 
     function nextGuessHandler(direction) {
         if (direction === '-' && currentGuess < userNumber || direction === '+' && currentGuess > userNumber) {
@@ -40,8 +42,10 @@ function GameScreen({ userNumber, onGameOver }) {
         }
         const newRdnNumber = generateRandomBetween(min, max, currentGuess)
         setCurrentState(newRdnNumber)
+        setRounds(prev => [newRdnNumber, ...prev])
     }
 
+    const length = rounds.length
 
     return (
         <View style={styles.screen}>
@@ -59,14 +63,17 @@ function GameScreen({ userNumber, onGameOver }) {
                     </View>
                     <View style={styles.buttonContainer}>
                         <PrimaryButton onPress={nextGuessHandler.bind(this, '+')}>
-                                     <Ionicons name="add" size={24} color="white" />
+                            <Ionicons name="add" size={24} color="white" />
                         </PrimaryButton>
                     </View>
                 </View>
 
             </Card>
-            <View>
-
+            <View style={styles.listContainer}>
+                {/* {rounds.map(round => <Text key={round}>{round}</Text>)} */}
+                <FlatList keyExtractor={(item) => item}
+                    data={rounds}
+                    renderItem={(itemData) => <GuessLogItem roundNumber={length - itemData.index } guess={itemData.item}/>} />
             </View>
         </View>
     )
@@ -78,7 +85,8 @@ export default GameScreen;
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        padding: 24
+        padding: 24,
+        alignItems: 'center'
     },
     title: {
         fontSize: 24,
@@ -95,7 +103,11 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1
     },
-        instructionText:{
+    instructionText: {
         marginBottom: 12
+    },
+    listContainer: {
+        flex: 1,
+        padding: 30
     }
 })
