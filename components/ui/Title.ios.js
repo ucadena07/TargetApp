@@ -3,7 +3,7 @@ import Colors from '../../constants/colors';
 
 function Title({children}){
     return (
-      <Text style={styles.title}>{children}</Text>
+      <Text style={styles.title}>IOS:{children}</Text>
     )
 }
 
