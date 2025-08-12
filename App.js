@@ -5,9 +5,9 @@ import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/colors';
 import GameIsOverScreen from './screens/GameOverScreen';
-import {useFonts} from 'expo-font'
+import { useFonts } from 'expo-font'
 import AppLoading from 'expo-app-loading';
-
+import { StatusBar } from 'expo-status-bar'
 
 export default function App() {
 
@@ -24,41 +24,45 @@ export default function App() {
     setUserNumber(pickedNumber)
     setGameIsOver(false)
   }
-  function gameOverHandler(){
+  function gameOverHandler() {
     setGameIsOver(true)
   }
 
-  function startNewGameHandler(){
-       setUserNumber(null)
-       setGameIsOver(false)
-       setRounds(0)
+  function startNewGameHandler() {
+    setUserNumber(null)
+    setGameIsOver(false)
+    setRounds(0)
   }
 
-  if(!fontsLoaded){
+  if (!fontsLoaded) {
     return <AppLoading />
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler}/>
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
   }
-  if(gameIsOver && userNumber){
-    screen = <GameIsOverScreen userNumber={userNumber} onStartNewGame={startNewGameHandler} rounds={guessRounds}/>
+  if (gameIsOver && userNumber) {
+    screen = <GameIsOverScreen userNumber={userNumber} onStartNewGame={startNewGameHandler} rounds={guessRounds} />
   }
 
 
 
   return (
-    <LinearGradient style={styles.rootScreen} colors={[Colors.primary700, Colors.accent500]}>
-      <ImageBackground source={require("./assets/images/background.png")} resizeMode='cover' style={styles.rootScreen} imageStyle={styles.backgroundImage}>
-        <SafeAreaView style={styles.rootScreen}>
-          {screen}
-        </SafeAreaView>
+    <>
+      <StatusBar style='light'/>
+      <LinearGradient style={styles.rootScreen} colors={[Colors.primary700, Colors.accent500]}>
+        <ImageBackground source={require("./assets/images/background.png")} resizeMode='cover' style={styles.rootScreen} imageStyle={styles.backgroundImage}>
+          <SafeAreaView style={styles.rootScreen}>
+            {screen}
+          </SafeAreaView>
 
-      </ImageBackground>
+        </ImageBackground>
 
-    </LinearGradient>
+      </LinearGradient>
+    </>
+
 
   );
 }
